@@ -1,4 +1,5 @@
-import { LOCATIONS } from "../../data/locations";
+import { useEffect, useState } from "react";
+import { getLocations } from "../../services/website/locationService";
 import L from "leaflet";
 
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
@@ -21,6 +22,23 @@ L.Icon.Default.mergeOptions({
 
 function LocationsPage() {
 
+  const [locations, setLocations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    getLocations()
+      .then((data) => {
+        setLocations(data);
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <Section tone="surface">
 
@@ -40,10 +58,10 @@ function LocationsPage() {
 
       {!loading && !error && (
         <>
-          <LocationsMap locations={LOCATIONS} />
+          <LocationsMap locations={locations} />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {LOCATIONS.map((loc) => (
+            {locations.map((loc) => (
               <LocationCard
                 key={loc.id}
                 location={loc}
