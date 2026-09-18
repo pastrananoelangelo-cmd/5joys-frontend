@@ -42,7 +42,7 @@ function LmsLayout({ children }) {
 
 function App() {
   return (
-    <BrowserRouter basename="/5joys-website">
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
 
         {/* ==================== */}
