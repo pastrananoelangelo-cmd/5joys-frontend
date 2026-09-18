@@ -7,5 +7,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: '/5joys-website/',
+  base: '/5joys-frontend/',
 })
