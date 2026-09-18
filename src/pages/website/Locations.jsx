@@ -1,4 +1,4 @@
-import { LOCATIONS } from "../../data/locations";
+import { LOCATIONS } from "../../data/website/locations";
 import L from "leaflet";
 
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
@@ -20,7 +20,6 @@ L.Icon.Default.mergeOptions({
 });
 
 function LocationsPage() {
-
   return (
     <Section tone="surface">
 
@@ -30,28 +29,16 @@ function LocationsPage() {
         intro="Every 5JOYS store follows the same standard for stock, cleanliness, and service, wherever you find us."
       />
 
-      {loading && (
-        <p>Loading locations...</p>
-      )}
+      <LocationsMap locations={LOCATIONS} />
 
-      {error && (
-        <p>{error}</p>
-      )}
-
-      {!loading && !error && (
-        <>
-          <LocationsMap locations={LOCATIONS} />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {LOCATIONS.map((loc) => (
-              <LocationCard
-                key={loc.id}
-                location={loc}
-              />
-            ))}
-          </div>
-        </>
-      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        {LOCATIONS.map((loc) => (
+          <LocationCard
+            key={loc.id}
+            location={loc}
+          />
+        ))}
+      </div>
 
     </Section>
   );
